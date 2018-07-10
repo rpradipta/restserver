@@ -13,17 +13,17 @@ class Api extends REST_Controller {
 
     //Menampilkan data produk
     function tiket_get() {
-        $id = $this->get('id');
+        $id = $this->get('kode_tiket');
         if ($id == '') {
             $produk = $this->m_produk->getProduk();
         } else {
-            $produk = $this->m_produk->getProdukById($id);
+            $produk = $this->m_produk->getProdukByIdTiket($id);
         }
         $this->response($produk, 200);
     }
 
     function pesan_get() {
-        $id = $this->get('id');
+        $id = $this->get('kode_tiket');
         if ($id == '') {
             $produk = $this->m_pesanan->getProduk();
         } else {
@@ -37,12 +37,12 @@ class Api extends REST_Controller {
         //mengambil ID yang dikirim melalui method post
         $id = $this->post('id');
         //mengambil data yang dikirim melalui method post
-        $data = array(
-                'nama'      => $this->post('nama'),
-                'tipe'      => $this->post('tipe'),
-                'harga'     => $this->post('harga'),
-                'stok'      => $this->post('stok')
-        );
+         $data = array(
+                'tgl_berangkat'        =>  $this->input->post('tgl'),
+                'harga'      =>  $this->input->post('harga'),
+                'asal'     =>  $this->input->post('asal'),              
+                'tujuan'     =>  $this->input->post('tujuan')
+                );
         
         //proses update data ke dalam database
         $update = $this->m_produk->updateProduk($id,$data);

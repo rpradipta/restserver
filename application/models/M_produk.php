@@ -13,9 +13,15 @@ class M_produk extends CI_Model{
         $query = $this->db->get($this->table);
         return $query->result();
     }
-    
+
+    function getProdukByIdTiket($id){
+        $this->db->where('kode_tiket',$id);
+        $query = $this->db->get($this->table);
+        return $query->result();
+    }
+
     function updateProduk($id,$data){
-        $this->db->where('id', $id);
+        $this->db->where('kode_tiket', $id);
         return $this->db->update($this->table, $data);
     }
     

@@ -8,6 +8,7 @@ class Api extends REST_Controller {
         parent::__construct($config);
         //untuk memuat model M_produk.php agar dapat dipakai di controller ini
         $this->load->model(array('m_produk'));
+        $this->load->model(array('m_pesanan'));
     }
 
     //Menampilkan data produk
@@ -17,6 +18,16 @@ class Api extends REST_Controller {
             $produk = $this->m_produk->getProduk();
         } else {
             $produk = $this->m_produk->getProdukById($id);
+        }
+        $this->response($produk, 200);
+    }
+
+    function pesan_get() {
+        $id = $this->get('id');
+        if ($id == '') {
+            $produk = $this->m_pesanan->getProduk();
+        } else {
+            $produk = $this->m_pesanan->getProdukById($id);
         }
         $this->response($produk, 200);
     }

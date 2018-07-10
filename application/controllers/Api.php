@@ -38,7 +38,7 @@ class Api extends REST_Controller {
         $id = $this->post('id');
         //mengambil data yang dikirim melalui method post
          $data = array(
-                'tgl_berangkat'        =>  $this->input->post('tgl'),
+                'tgl_berangkat'        =>  date('Y-m-d H:i:s',strtotime($this->input->post('tgl'))),
                 'harga'      =>  $this->input->post('harga'),
                 'asal'     =>  $this->input->post('asal'),              
                 'tujuan'     =>  $this->input->post('tujuan')

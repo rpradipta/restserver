@@ -8,7 +8,7 @@ class Api extends REST_Controller {
         parent::__construct($config);
         //untuk memuat model M_produk.php agar dapat dipakai di controller ini
         $this->load->model(array('m_produk'));
-        $this->load->model(array('m_pesanan'));
+        // $this->load->model(array('m_pesanan'));
     }
 
     //Menampilkan data produk

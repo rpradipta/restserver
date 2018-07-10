@@ -77,7 +77,7 @@ class Api extends REST_Controller {
     //Menghapus salah satu data produk
     function tiket_delete() {
         //mengambil data ID yang dikirim melalui method post
-        $id = $this->delete('id');
+        $id = $this->delete('kode_tiket');
         //proses delete data dari database
         $delete = $this->m_produk->deleteProduk($id);
 

@@ -30,7 +30,7 @@ class M_produk extends CI_Model{
     }
     
     function deleteProduk($id){
-        $this->db->where('id', $id);
+        $this->db->where('kode_tiket', $id);
         $query = $this->db->delete($this->table);
         if($this->db->affected_rows() == '1'){
             return true;

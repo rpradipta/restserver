@@ -8,6 +8,7 @@ class Api extends REST_Controller {
         parent::__construct($config);
         //untuk memuat model M_produk.php agar dapat dipakai di controller ini
         $this->load->model(array('m_produk'));
+        $this->load->model(array('m_airline'));
         // $this->load->model(array('m_pesanan'));
     }
 
@@ -36,11 +37,13 @@ class Api extends REST_Controller {
     function tiket_post() {
         //mengambil ID yang dikirim melalui method post
         $id = $this->post('id');
+        
         //mengambil data yang dikirim melalui method post
          $data = array(
-                'tgl_berangkat'        =>  date('Y-m-d H:i:s',strtotime($this->input->post('tgl'))),
+                'tgl_berangkat'        =>  $this->input->post('tgl'),
                 'harga'      =>  $this->input->post('harga'),
-                'asal'     =>  $this->input->post('asal'),              
+                'asal'     =>  $this->input->post('asal'),            
+                 
                 'tujuan'     =>  $this->input->post('tujuan')
                 );
         
@@ -57,11 +60,18 @@ class Api extends REST_Controller {
     //Menambah data produk
     function tiket_put() {
         //mengambil data yang dikirim melalui method put
-        $data = array(
-                'nama'      => $this->put('nama'),
-                'tipe'      => $this->put('tipe'),
-                'harga'     => $this->put('harga'),
-                'stok'      => $this->put('stok')
+        $airline = $this->m_airline->getAirlineId($this->put('airline'));
+        $asl = substr($this->put('asal'), 0,3);
+        $tjn = substr($this->put('tujuan'), 0,3);   
+        $hrg = $this->put('harga')/1000;
+        $kode = substr($airline, 0,2).$asl.$tjn.$hrg;
+       $data = array(
+                'kode_tiket'      => $kode,
+                'id_airline'      => $airline,
+                'tgl_berangkat'      => $this->put('tgl'),
+                'harga'      => $this->put('harga'),
+                'asal'     => $this->put('asal'),
+                'tujuan'      => $this->put('tujuan')
         );
         //proses insert data ke dalam database
         $insert = $this->m_produk->insertProduk($data);

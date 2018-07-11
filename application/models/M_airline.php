@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_produk extends CI_Model{
-    private $table = "ticket";
+class M_airline extends CI_Model{
+    private $table = "airline";
     
     function getProduk(){        
         $query = $this->db->get($this->table);
@@ -29,7 +29,14 @@ class M_produk extends CI_Model{
         return $this->db->insert($this->table,$data);
     }
     
-   
+    function getAirlineId($airline){
+         $this->db->like('id', $airline);       
+        $query = $this->db->get($this->table);
+        $result = $query->row();
+        return $result->id;
+
+    }
+    
     function deleteProduk($id){
         $this->db->where('kode_tiket', $id);
         $query = $this->db->delete($this->table);

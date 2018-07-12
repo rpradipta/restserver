@@ -9,7 +9,7 @@ class Api extends REST_Controller {
         //untuk memuat model M_produk.php agar dapat dipakai di controller ini
         $this->load->model(array('m_produk'));
         $this->load->model(array('m_airline'));
-        // $this->load->model(array('m_pesanan'));
+        $this->load->model(array('m_pesanan'));
     }
 
     //Menampilkan data produk
@@ -24,7 +24,7 @@ class Api extends REST_Controller {
     }
 
     function pesan_get() {
-        $id = $this->get('kode_tiket');
+        $id = $this->get('kode_order');
         if ($id == '') {
             $produk = $this->m_pesanan->getProduk();
         } else {
